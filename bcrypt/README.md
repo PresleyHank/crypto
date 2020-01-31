@@ -11,13 +11,16 @@ GenerateFromPasswordReturnSalt is different from GenerateFromPassword in that it
 
 I've include 2 functions below that I have used to encrypt and decrypt with bcrypt.
 
-`Import (
+```
+Import (
   	"crypto/aes"
 	  "crypto/cipher"
     "github.com/jbramsden/crypto/bcrypt"
-  )`
+  )
+```
 
-`//Encrypt - Takes data and a passphrase and returns an encrypted byte slice and salt.
+```
+//Encrypt - Takes data and a passphrase and returns an encrypted byte slice and salt.
 func Encrypt(data []byte, passphrase string) (ciphertext []byte, s []byte, err error) {
 	var h []byte
 
@@ -77,11 +80,12 @@ func Decrypt(data []byte, passphrase string, salt []byte) (plaintext []byte, err
 	}
 	return
 }
-`
+```
 
 ## Test use for these functions
 
-`func TestDecrypt(t *testing.T) {
+```
+func TestDecrypt(t *testing.T) {
 	hash, salt, err := Encrypt([]byte("Hello"), "Happy Times")
 	if err != nil {
 		t.Errorf("Failed to encrypt because %v", err)
@@ -94,6 +98,7 @@ func Decrypt(data []byte, passphrase string, salt []byte) (plaintext []byte, err
 		t.Errorf("Expected 'Hello' got '%s'", txt)
 	}
 
-}`
+}
+```
 
 
