@@ -94,6 +94,16 @@ func GenerateFromPassword(password []byte, cost int) ([]byte, error) {
 	return p.Hash(), nil
 }
 
+// GenerateFromPasswordReturnSalt returns the bcrypt hash(without header and salr) and salt of the password at the given
+// cost. Same as GenerateFromPassword but where the generated salt is required.
+func GenerateFromPasswordReturnSalt(password []byte, cost int) ([]byte, []byte, error) {
+	p, err := newFromPassword(password, cost)
+	if err != nil {
+		return nil, nil, err
+	}
+	return p.hash, p.salt, nil
+}
+
 // CompareHashAndPassword compares a bcrypt hashed password with its possible
 // plaintext equivalent. Returns nil on success, or an error on failure.
 func CompareHashAndPassword(hashedPassword, password []byte) error {
@@ -182,6 +192,13 @@ func newFromHash(hashedSecret []byte) (*hashed, error) {
 	copy(p.hash, hashedSecret)
 
 	return p, nil
+}
+
+// Bcrypt returns the hash for a given password and salt. Only to be used
+// if you already have a salt. In most instances you should use GenerateFromPassword
+// which generates the salt for you.
+func Bcrypt(password []byte, cost int, salt []byte) ([]byte, error) {
+	return bcrypt(password, cost, salt)
 }
 
 func bcrypt(password []byte, cost int, salt []byte) ([]byte, error) {
