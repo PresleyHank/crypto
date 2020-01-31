@@ -104,7 +104,7 @@ func TestDecrypt(t *testing.T) {
 To be able to use this with files the salt needs to be added to the begining or end of the file. Here is an example functions for writing to and reading from a file.
 
 ```
-/WriteEncrypt - Use as a replacement for OS (*File) Write.
+//WriteEncrypt - Use as a replacement for OS (*File) Write.
 //				 Provide the filehandler from os.Create or os.NewFile or os.Open or OpenFile.
 //				 And also the data as a byte slice with the passphrase to encyrpt the data
 func WriteEncrypt(filehandler *os.File, data []byte, passphrase string) (n int, err error) {
