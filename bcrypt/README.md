@@ -1,4 +1,4 @@
-# Updated bcyrpt
+# Updated bcyrpt to use with AES
 
 ## Introduction
 
